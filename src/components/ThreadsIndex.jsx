@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const ThreadsIndex = () => {
   const [threads, setThreads] = useState([]);
@@ -22,12 +23,18 @@ const ThreadsIndex = () => {
               key={index}
               class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]"
             >
-              <div class="p-4 md:p-6">
-                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:hover:text-white">
-                  {thread.title}
-                </h3>
-                <p class="mt-3 text-gray-500">{thread.id}</p>
-              </div>
+              <Link
+                to={`/threads/${thread.id}/posts?title=${encodeURIComponent(
+                  thread.title
+                )}`}
+              >
+                <div class="p-4 md:p-6">
+                  <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:hover:text-white">
+                    {thread.title}
+                  </h3>
+                  <p class="mt-3 text-gray-500">{thread.id}</p>
+                </div>
+              </Link>
             </div>
           ))}
         </div>

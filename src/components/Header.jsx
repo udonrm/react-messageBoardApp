@@ -9,9 +9,11 @@ const Header = () => {
         aria-label="Global"
       >
         <div class="flex items-center justify-between">
-          <h1 class="text-xl font-semibold text-white dark:text-gray-300 dark:hover:text-white">
-            掲示板
-          </h1>
+          <Link to="/">
+            <h1 class="text-xl font-semibold text-white dark:text-gray-300 dark:hover:text-white">
+              掲示板
+            </h1>
+          </Link>
         </div>
         <div class="flex items-center sm:ms-auto">
           <h2 class="flex items-center gap-x-2 font-medium text-white hover:text-yellow-100 dark:text-gray-400 dark:hover:text-blue-500">
