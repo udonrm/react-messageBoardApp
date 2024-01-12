@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 
@@ -38,9 +37,7 @@ const ThreadsPost = () => {
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Header />} />
-      </Routes>
+      <Header />
       <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <div class="mx-auto max-w-2xl">
           <div class="text-center">
