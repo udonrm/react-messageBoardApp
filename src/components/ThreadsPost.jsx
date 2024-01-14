@@ -33,6 +33,7 @@ const ThreadsPost = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     postNewThread();
+    setThreadData({ title: "" });
   };
 
   return (
