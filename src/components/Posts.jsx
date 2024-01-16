@@ -5,19 +5,17 @@ import { CreatePost } from "./CreatePost";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+
   // App.jsで定義したthreadId
   // ThreadsIndexからPosts.jsxへの遷移時にuseParams()を使ってスレッドIDがthreadId変数に格納される
   const { threadId } = useParams();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const title = searchParams.get("title");
 
   const addNewPost = (newPost) => {
     setPosts((currentPosts) => [newPost, ...currentPosts]);
   };
-
-  useEffect(() => {
-    console.log(posts); // postsが更新されるたびにログを出力
-  }, [posts]);
 
   useEffect(() => {
     getAllPosts(threadId);
@@ -31,20 +29,23 @@ const Posts = () => {
       const data = await response.json();
       setPosts(data.posts);
     } catch (e) {
-      console.log("error", e);
+      setErrorMessage("接続に失敗しました");
+      console.error("error", e);
     }
   };
 
   return (
     <>
       <Header />
-      <CreatePost onPostCreated={addNewPost} />
-
       <div className="max-w-[25rem] grid grid-cols-1 gap-4 px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:hover:text-white">
+        <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:hover:text-white">
           スレッド：{decodeURIComponent(title)}
-        </h2>
-        {posts.length > 0 ? (
+        </h1>
+        {errorMessage ? (
+          <h2 className="text-center text-gray-800 dark:text-gray-300">
+            {errorMessage}
+          </h2>
+        ) : posts.length > 0 ? (
           posts.map((post, index) => (
             <div
               key={index}
@@ -58,11 +59,12 @@ const Posts = () => {
             </div>
           ))
         ) : (
-          <h1 className="text-center text-gray-800 dark:text-gray-300">
+          <h2 className="text-center text-gray-800 dark:text-gray-300">
             スレッド内に投稿データはありません。
-          </h1>
+          </h2>
         )}
       </div>
+      <CreatePost onPostCreated={addNewPost} />
     </>
   );
 };
